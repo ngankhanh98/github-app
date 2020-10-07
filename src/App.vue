@@ -1,17 +1,47 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div class="container">
+    <SearchBar @search-user="searchUser" />
+    <Users v-model="users" :items="users" />
+  </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import axios from "axios";
 
+import SearchBar from "./components/SearchBar";
+import Users from "./components/Users";
 export default {
-  name: 'App',
+  name: "App",
   components: {
-    HelloWorld
-  }
-}
+    SearchBar,
+    Users,
+  },
+  data() {
+    return {
+      users: [],
+    };
+  },
+  mounted() {
+    this.users = [];
+  },
+  methods: {
+    async searchUser(term) {
+      console.log("term", term);
+      const result = await axios
+        .get(`https://api.github.com/search/users?q=user:${term}`)
+        .then((result) => {
+          return result.data.items;
+        })
+        .catch((err) => {
+          // TODO: don't know how to throw error
+          return err;
+        });
+
+      // TODO: what if result empty
+      this.users = [...result];
+    },
+  },
+};
 </script>
 
 <style>
