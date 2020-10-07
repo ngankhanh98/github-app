@@ -1,44 +1,34 @@
 <template>
   <div class="container">
     <SearchBar @search-user="searchUser" />
-    <Users v-model="users" :items="users" />
+    <Users :items="users" />
+    <Alert v-if="message" :message="message" :type="alertType" />
   </div>
 </template>
 
 <script>
-import axios from "axios";
-
 import SearchBar from "./components/SearchBar";
 import Users from "./components/Users";
+import Alert from "./components/Alert";
+import { mapGetters } from "vuex";
+
 export default {
   name: "App",
   components: {
     SearchBar,
     Users,
+    Alert,
   },
-  data() {
-    return {
-      users: [],
-    };
+  computed: {
+    ...mapGetters(["users", "message", "alertType"]),
   },
   mounted() {
-    this.users = [];
+    this.$store.dispatch("init");
   },
   methods: {
-    async searchUser(term) {
-      console.log("term", term);
-      const result = await axios
-        .get(`https://api.github.com/search/users?q=user:${term}`)
-        .then((result) => {
-          return result.data.items;
-        })
-        .catch((err) => {
-          // TODO: don't know how to throw error
-          return err;
-        });
-
-      // TODO: what if result empty
-      this.users = [...result];
+    searchUser(term) {
+      this.$store.dispatch('resetState')
+      this.$store.dispatch("searchUser", term);
     },
   },
 };
