@@ -1,27 +1,21 @@
 <template>
-  <div>
-    <div class="input-group mb-3">
-      <input
-        type="text"
-        class="form-control"
-        placeholder="Github username"
-        aria-label="Github username"
-        aria-describedby="button-addon2"
-        v-model="term"
-        @keyup.enter="termSearch"
-      />
-      <div class="input-group-append">
-        <button
-          class="btn btn-outline-secondary"
-          type="button"
-          id="button-addon2"
-          @click="termSearch"
-        >
+  <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+    <div class="collapse navbar-collapse" id="navbarCollapse">
+        <input
+          class="form-control mr-sm-2"
+          type="text"
+          aria-label="Github username"
+          aria-describedby="button-addon2"
+          v-model="term"
+          @keyup.enter="termSearch"
+        />
+        <button class="btn btn-outline-success my-2 my-sm-0" type="button" @click="termSearch">
           Search
         </button>
-      </div>
     </div>
-  </div>
+  </nav>
+
+  
 </template>
 
 <script>
@@ -33,7 +27,7 @@ export default {
   },
   methods: {
     termSearch() {
-    //   console.log("term", this.term);
+      //   console.log("term", this.term);
       this.$emit("search-user", this.term);
     },
   },

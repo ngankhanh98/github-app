@@ -5,14 +5,16 @@ export default createStore({
   state: {
     users: null,
     message: '',
-    alertType: ''
+    alertType: '',
+    repos: []
   },
   getters: {
     users: state => {
       return state.users;
     },
     message: state => { return state.message },
-    alertType: state => state.alertType
+    alertType: state => state.alertType,
+    repos: state => state.repos
   },
   mutations: {
     INIT_STATES(state, payload) {
@@ -33,6 +35,11 @@ export default createStore({
       state.users = null
       state.message = ''
       state.alertType = ''
+      state.repos = null
+    },
+    LOAD_REPOS(state, { data }) {
+      state.repos = data
+      console.log('state.repos', state.repos)
     }
   },
   actions: {
@@ -54,7 +61,21 @@ export default createStore({
     },
     resetState({ commit }) {
       commit('RESET_STATE')
+    },
+
+    loadRepos({ commit }, username) {
+      console.log('username', username)
+      return axios
+        .get(`https://api.github.com/users/${username}/repos`)
+        .then((result) => {
+          console.log('result', result)
+          commit('LOAD_REPOS', result)
+        })
+        .catch((err) => {
+          commit('ERROR', err.message)
+        });
     }
+
   },
   modules: {
   }
