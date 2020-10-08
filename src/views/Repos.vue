@@ -20,7 +20,8 @@ export default {
     ...mapGetters(["repos"]),
   },
   mounted() {
-    const username = this.$store.state.users[0].login;
+    const username = this.$route.params.username
+    // const username = this.$store.state.users[0].login;
     console.log("username", username);
     this.$store.dispatch("loadRepos", username);
   },
