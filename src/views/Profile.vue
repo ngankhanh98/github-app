@@ -3,17 +3,22 @@
     <div class="flex-shrink-0 col-12 col-md-3 mb-4 mb-md-0">
       <PersonalBar :user="userInfo" />
     </div>
-    <div class="flex-shrink-0 col-12 col-md-9 mb-4 mb-md-0">
+    <div class="flex-shrink-0 col-12 col-md-10 mb-4 mb-md-0">
       <h5>Repositories</h5>
-      <div v-for="repo in repos" :key="repo.key">
+      <div class="d-flex flex-row flex-wrap">
         <ReposCard
+          v-for="repo in repos"
+          :key="repo.id"
           :name="repo.name"
           :description="repo.description"
           :stargazers_count="repo.stargazers_count"
           :open_issues_count="repo.open_issues_count"
           :full_name="repo.full_name"
+          class="col-md-5 m-1" 
         />
       </div>
+
+      <!-- </div> -->
     </div>
   </div>
 </template>

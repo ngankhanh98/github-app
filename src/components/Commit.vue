@@ -1,12 +1,23 @@
 <template>
-  <div class="card">
+  <div class="card my-2">
     <div class="card-body" :key="sha">
       <a :href="html_url" target="_blank">
-        <h6>{{ message }}</h6>
+        <h5>{{ message }}</h5>
       </a>
-      <p class="text-muted">
-        <a href="#" class="text-reset">{{ author }}</a>
-      </p>
+      <div class="d-flex align-items-center">
+        <img
+          :src="avatar_url"
+          width="20"
+          height="20"
+          class="bd-placeholder-img
+      mr-2 rounded-circle"
+        />
+        <p class="mb-0">
+          <small
+            ><b>{{ author }}</b> commited on {{ date }}</small
+          >
+        </p>
+      </div>
     </div>
   </div>
 </template>
@@ -19,6 +30,8 @@ export default {
     message: { type: String },
     sha: { type: String },
     html_url: { type: String },
+    avatar_url: { type: String },
+    date: { type: String },
   },
 };
 </script>

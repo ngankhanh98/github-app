@@ -1,17 +1,13 @@
 <template>
-  <div>
-    <div class="card" style="width: 18rem;">
-      <div class="card-body">
-        <button type="button" class="btn btn-link" @click="redirectCommit">
-          <h5>
-            {{ name }}
-          </h5>
-        </button>
-        <p class="card-text">
-          {{ description }}
-        </p>
-        <p>{{ stargazers_count }} {{ open_issues_count }}</p>
-      </div>
+  <div class="card">
+    <div class="card-body">
+      <a href="javascript:void(0)" @click="redirectCommit"
+        ><h5>{{ name }}</h5></a
+      >
+      <p class="card-text">
+        {{ description }}
+      </p>
+      <p>{{ stargazers_count }} {{ open_issues_count }}</p>
     </div>
   </div>
 </template>
