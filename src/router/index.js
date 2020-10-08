@@ -12,6 +12,11 @@ const routes = [
     name: 'Profile',
     component: () => import(/* webpackChunkName: "about" */ '../views/Profile.vue')
   },
+  {
+    path: '/:username/:repos',
+    name: 'Commits',
+    component: () => import(/* webpackChunkName: "about" */ '../views/Commits.vue')
+  },
 ]
 
 const router = createRouter({

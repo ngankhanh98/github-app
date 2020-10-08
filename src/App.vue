@@ -1,6 +1,8 @@
 <template>
   <SearchBar @search-user="searchUser" />
-  <router-view />
+  <div class="container pt-5 mt-5">
+    <router-view />
+  </div>
 </template>
 
 <script>
@@ -19,10 +21,6 @@ export default {
     this.$store.dispatch("init");
   },
   methods: {
-    // searchUser(term) {
-    //   this.$store.dispatch("resetState");
-    //   this.$store.dispatch("searchUser", term);
-    // },
     searchUser(term) {
       this.$router.push("/");
       this.$store.dispatch("resetState");
