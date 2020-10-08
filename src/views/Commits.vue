@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div v-for="commit in commits" :key="commit.sha">
+    <div v-for="commit in latestCommits" :key="commit.sha">
       <Commit
         :key="commit.sha"
         :message="commit.commit.message"
@@ -29,6 +29,9 @@ export default {
   },
   computed: {
     ...mapGetters(["commits"]),
+    latestCommits() {
+      return this.$store.state.commits.slice(0, 10);
+    },
   },
 };
 </script>
