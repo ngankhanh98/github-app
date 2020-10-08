@@ -20,7 +20,9 @@ export default {
     ...mapGetters(["repos"]),
   },
   mounted() {
-    this.$store.dispatch("loadRepos");
+    const username = this.$store.state.users[0].login;
+    console.log("username", username);
+    this.$store.dispatch("loadRepos", username);
   },
 };
 </script>

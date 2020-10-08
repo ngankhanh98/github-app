@@ -63,10 +63,7 @@ export default createStore({
       commit('RESET_STATE')
     },
 
-    loadRepos({ commit, state }) {
-
-      console.log('state', state) // state = {users: null, message: "", alertType: "", repos: Array(0)}
-      const username = state.users[0].login
+    loadRepos({ commit }, username) {
       console.log('username', username)
       return axios
         .get(`https://api.github.com/users/${username}/repos`)

@@ -6,8 +6,7 @@
       height="30"
       class="bd-placeholder-img mr-2 rounded"
     />
-    <!-- <a :href="item.login"> -->
-    <a href="/profile">
+    <router-link to="/profile">
       <div
         class="media-body pb-3 mb-0 small lh-125 d-flex justify-content-start"
       >
@@ -15,7 +14,7 @@
           <strong class="text-primary">@{{ item.login }}</strong>
         </div>
       </div>
-    </a>
+    </router-link>
   </div>
 </template>
 
