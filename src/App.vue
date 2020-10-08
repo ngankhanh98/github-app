@@ -1,17 +1,35 @@
 <template>
-  <!-- <Home /> -->
-  <div id="nav">
-    <router-link to="/"></router-link>
-    <router-link to="/profile"></router-link>
-    <router-view />
-  </div>
+  <SearchBar @search-user="searchUser" />
+  <router-view />
 </template>
 
 <script>
-// import Home from "./views/Home";
+import SearchBar from "./components/SearchBar";
+import { mapGetters } from "vuex";
+
 export default {
-  name: "App",
-  // components: { Home },
+  name: "Home",
+  components: {
+    SearchBar,
+  },
+  computed: {
+    ...mapGetters(["users", "message", "alertType"]),
+  },
+  mounted() {
+    this.$store.dispatch("init");
+  },
+  methods: {
+    // searchUser(term) {
+    //   this.$store.dispatch("resetState");
+    //   this.$store.dispatch("searchUser", term);
+    // },
+    searchUser(term) {
+      this.$router.push("/");
+      this.$store.dispatch("resetState");
+      console.log("term", term);
+      this.$store.dispatch("searchUser", term);
+    },
+  },
 };
 </script>
 

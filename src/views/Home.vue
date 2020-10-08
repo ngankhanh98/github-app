@@ -1,7 +1,5 @@
 <template>
-  <SearchBar @search-user="searchUser" />
-
-   <!-- TODO: make these center -->
+  <!-- TODO: make these center -->
   <main role="main" class="containter">
     <div
       class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-5 pb-2 mb-3 "
@@ -13,7 +11,6 @@
 </template>
 
 <script>
-import SearchBar from "../components/SearchBar";
 import Users from "../components/Users";
 import Alert from "../components/Alert";
 import { mapGetters } from "vuex";
@@ -21,7 +18,6 @@ import { mapGetters } from "vuex";
 export default {
   name: "Home",
   components: {
-    SearchBar,
     Users,
     Alert,
   },
@@ -33,7 +29,9 @@ export default {
   },
   methods: {
     searchUser(term) {
+      this.$router.push("/");
       this.$store.dispatch("resetState");
+      console.log('term', term)
       this.$store.dispatch("searchUser", term);
     },
   },
