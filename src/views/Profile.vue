@@ -1,24 +1,38 @@
 <template>
-  <div v-for="repo in repos" :key="repo.key">
-      <ReposCard
-        :name="repo.name"
-        :description="repo.description"
-        :stargazers_count="repo.stargazers_count"
-        :open_issues_count="repo.open_issues_count"
-        :full_name="repo.full_name"
-      />
+  <div class="d-flex flex-row">
+    <div class="flex-shrink-0 col-12 col-md-3 mb-4 mb-md-0">
+      <PersonalBar :user="userInfo" />
+    </div>
+    <div class="flex-shrink-0 col-12 col-md-9 mb-4 mb-md-0">
+      <h5>Repositories</h5>
+      <div v-for="repo in repos" :key="repo.key">
+        <ReposCard
+          :name="repo.name"
+          :description="repo.description"
+          :stargazers_count="repo.stargazers_count"
+          :open_issues_count="repo.open_issues_count"
+          :full_name="repo.full_name"
+        />
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
 import ReposCard from "../components/ReposCard";
+import PersonalBar from "../components/PersonalBar";
 import { mapGetters } from "vuex";
 
 export default {
   name: "Repos",
-  components: { ReposCard },
+  components: { ReposCard, PersonalBar },
   computed: {
     ...mapGetters(["repos"]),
+    userInfo() {
+      const { login, avatar_url } = this.$store.state.users[0];
+      const info = { username: login, avatar_url };
+      return info;
+    },
   },
   mounted() {
     const username = this.$route.params.username;

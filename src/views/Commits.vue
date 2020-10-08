@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="mt-5">
     <div v-for="commit in latestCommits" :key="commit.sha">
       <Commit
         :key="commit.sha"
