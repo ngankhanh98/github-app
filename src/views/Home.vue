@@ -1,7 +1,6 @@
 <template>
-  <h3 v-if="users">Result</h3>
+  <h3 v-if="users">Users</h3>
   <Users :items="users" />
-
   <Alert v-if="message" :message="message" :type="alertType" />
 </template>
 

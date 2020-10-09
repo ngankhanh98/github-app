@@ -58,7 +58,7 @@ export default createStore({
     },
     searchUser({ commit }, term) {
       return axios
-        .get(`https://api.github.com/search/users?q=user:${term}`)
+        .get(`https://api.github.com/search/users?q=${term}`)
         .then((result) => {
           commit('SEARCH_USERS', result.data.items)
           // console.log('result.data.items', result.data.items)

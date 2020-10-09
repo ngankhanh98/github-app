@@ -1,11 +1,11 @@
 <template>
-  <div class="d-flex flex-row">
-    <div class="flex-shrink-0 col-12 col-md-3 mb-4 mb-md-0">
+  <a-row type="flex flex-column">
+    <a-col :flex="2">
       <PersonalBar v-show="userInfo" :user="userInfo" />
-    </div>
-    <div class="flex-shrink-0 col-12 col-md-10 mb-4 mb-md-0">
-      <h5>Repositories</h5>
-      <div class="d-flex flex-row flex-wrap">
+    </a-col>
+    <a-col :flex="3">
+      <h2>Repositories</h2>
+      <a-row type="flex">
         <ReposCard
           v-for="repo in repos"
           :key="repo.id"
@@ -14,11 +14,10 @@
           :stargazers_count="repo.stargazers_count"
           :open_issues_count="repo.open_issues_count"
           :full_name="repo.full_name"
-          class="col-md-5 m-1"
         />
-      </div>
-    </div>
-  </div>
+      </a-row>
+    </a-col>
+  </a-row>
 </template>
 
 <script>

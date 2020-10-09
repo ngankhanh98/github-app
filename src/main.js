@@ -1,9 +1,12 @@
 import { createApp } from 'vue'
 import App from './App.vue'
 import store from './store'
-import 'bootstrap';
-import 'bootstrap/dist/css/bootstrap.min.css'
 import router from './router'
 
+import Antd from 'ant-design-vue';
+// import App from './App';
+import 'ant-design-vue/dist/antd.css';
 
-createApp(App).use(router).use(store).mount('#app')
+const app = createApp(App)
+app.config.productionTip = false;
+app.use(router).use(store).use(Antd).mount('#app')
