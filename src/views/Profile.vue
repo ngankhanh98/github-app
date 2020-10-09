@@ -1,7 +1,7 @@
 <template>
   <div class="d-flex flex-row">
     <div class="flex-shrink-0 col-12 col-md-3 mb-4 mb-md-0">
-      <PersonalBar :user="userInfo" />
+      <PersonalBar v-show="userInfo" :user="userInfo" />
     </div>
     <div class="flex-shrink-0 col-12 col-md-10 mb-4 mb-md-0">
       <h5>Repositories</h5>
@@ -14,11 +14,9 @@
           :stargazers_count="repo.stargazers_count"
           :open_issues_count="repo.open_issues_count"
           :full_name="repo.full_name"
-          class="col-md-5 m-1" 
+          class="col-md-5 m-1"
         />
       </div>
-
-      <!-- </div> -->
     </div>
   </div>
 </template>
@@ -30,19 +28,32 @@ import { mapGetters } from "vuex";
 
 export default {
   name: "Repos",
-  components: { ReposCard, PersonalBar },
+  components: {
+    ReposCard,
+    PersonalBar,
+  },
   computed: {
     ...mapGetters(["repos"]),
     userInfo() {
-      const { login, avatar_url } = this.$store.state.users[0];
-      const info = { username: login, avatar_url };
-      return info;
+      const info = this.$store.state?.users?.[0];
+      console.log("info", info);
+      if (info !== undefined) {
+        console.log("info", info);
+        const { login, avatar_url } = info;
+        console.log("login", login);
+        console.log("avatar_url", avatar_url);
+        // // console.log('object', object)
+        return { username: login, avatar_url };
+      }
+      return false;
     },
   },
   mounted() {
     const username = this.$route.params.username;
     console.log("username", username);
     this.$store.dispatch("loadRepos", username);
+    this.$store.dispatch("searchUser", username);
+
     const repos = this.$state;
     console.log("repos", repos);
   },
