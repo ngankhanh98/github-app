@@ -1,5 +1,6 @@
 <template>
-<!-- v-if to hot render -->
+  <!-- v-if to hot render -->
+  <div></div>
   <a-list item-layout="horizontal" v-if="users" :data-source="users">
     <template v-slot:renderItem="{ item }">
       <a-list-item>
@@ -15,14 +16,13 @@
     </template>
   </a-list>
 </template>
-
 <script>
 import { mapGetters } from "vuex";
 export default {
   name: "Users",
   computed: {
-   ...mapGetters(["users"])
-  },
+    ...mapGetters(["users"]),
+  }
 };
 </script>
 

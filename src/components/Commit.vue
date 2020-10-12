@@ -1,5 +1,18 @@
 <template>
-  <div class="card my-2">
+  <a-card>
+    <p>
+      <a :href="html_url" target="_blank"
+        ><h5>{{ message }}</h5>
+      </a>
+    </p>
+    <p>
+      <a-avatar :src="avatar_url" style="margin-right:8px"/>
+      <small 
+        ><b>{{ author }}</b> commited on {{ date }}</small
+      >
+    </p>
+  </a-card>
+  <!-- <div class="card my-2">
     <div class="card-body" :key="sha">
       <a :href="html_url" target="_blank">
         <h5>{{ message }}</h5>
@@ -19,7 +32,7 @@
         </p>
       </div>
     </div>
-  </div>
+  </div> -->
 </template>
 
 <script>

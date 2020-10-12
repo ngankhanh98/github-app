@@ -61,7 +61,7 @@ export default createStore({
         .get(`https://api.github.com/search/users?q=${term}`)
         .then((result) => {
           commit('SEARCH_USERS', result.data.items)
-          // console.log('result.data.items', result.data.items)
+          console.log('result.data.items', result.data.items)
         })
         .catch((err) => {
           commit('ERROR', err.response.data.errors[0])

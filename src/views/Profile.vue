@@ -1,23 +1,23 @@
 <template>
-  <a-row type="flex flex-column">
-    <a-col :flex="2">
-      <PersonalBar v-show="userInfo" :user="userInfo" />
-    </a-col>
-    <a-col :flex="3">
-      <h2>Repositories</h2>
-      <a-row type="flex flex-row">
-        <ReposCard
-          v-for="repo in repos"
-          :key="repo.id"
-          :name="repo.name"
-          :description="repo.description"
-          :stargazers_count="repo.stargazers_count"
-          :open_issues_count="repo.open_issues_count"
-          :full_name="repo.full_name"
-        />
-      </a-row>
-    </a-col>
-  </a-row>
+  <div style="display: flex; ">
+    <PersonalBar v-show="userInfo" :user="userInfo" />
+    <div
+      style="
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;"
+    >
+      <ReposCard
+        v-for="repo in repos"
+        :key="repo.id"
+        :name="repo.name"
+        :description="repo.description"
+        :stargazers_count="repo.stargazers_count"
+        :open_issues_count="repo.open_issues_count"
+        :full_name="repo.full_name"
+      />
+    </div>
+  </div>
 </template>
 
 <script>
