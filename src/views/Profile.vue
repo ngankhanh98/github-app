@@ -5,7 +5,7 @@
     </a-col>
     <a-col :flex="3">
       <h2>Repositories</h2>
-      <a-row type="flex">
+      <a-row type="flex flex-row">
         <ReposCard
           v-for="repo in repos"
           :key="repo.id"
