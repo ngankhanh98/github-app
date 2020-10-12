@@ -1,26 +1,39 @@
 <template>
-  <a-layout id="components-layout-demo-top" class="layout">
-    <a-layout-header>
-      <a-row type="flex">
-        <a-col flex="150px" justify="space-around" align="middle">
-          <i class="fab fa-github" style="color:white;font-size:200%"></i>
-          <span
-            style="font-family: 'Poppins', sans-serif; color:white; font-size: 15px;"
-          >
-            Github
-          </span>
-        </a-col>
-        <a-col flex="auto"> <SearchBar @search-user="searchUser" /> </a-col>
-      </a-row>
-    </a-layout-header>
+  <!-- 1st render -->
+  <div v-if="!firstRender">
+    <a-page-header
+      style="border: 1px solid rgb(235, 237, 240)"
+      title="Result"
+      :sub-title="term"
+      @back="() => null"
+    >
+      <template v-slot:extra>
+        <SearchBar @search-user="searchUser" />
+      </template>
+    </a-page-header>
+    <router-view />
+  </div>
+  <a-layout v-if="firstRender" class="layout">
     <a-layout-content>
-      <div :style="{ background: '#fff', padding: '50px', minHeight: '380px' }">
-        <router-view />
+      <div
+        :style="{ background: '#fff', padding: '100px', minHeight: '380px' }"
+        flex="auto"
+        justify="space-around"
+        align="middle"
+      >
+        <a-row> <i class="fab fa-github" style="font-size:500%"></i> </a-row>
+        <a-row>
+          <span style="font-family: 'Poppins', sans-serif; font-size: 30px;">
+            Github
+          </span></a-row
+        >
+        <div style="margin-top: 40px;">
+          <SearchBar @search-user="searchUser" />
+        </div>
       </div>
     </a-layout-content>
   </a-layout>
 </template>
-
 <script>
 import SearchBar from "./components/SearchBar";
 import { mapGetters } from "vuex";
@@ -29,6 +42,12 @@ export default {
   name: "Home",
   components: {
     SearchBar,
+  },
+  data() {
+    return {
+      firstRender: true,
+      term: "",
+    };
   },
   computed: {
     ...mapGetters(["users", "message", "alertType"]),
@@ -42,6 +61,8 @@ export default {
       this.$store.dispatch("resetState");
       console.log("term", term);
       this.$store.dispatch("searchUser", term);
+      this.term = term;
+      this.firstRender = false;
     },
   },
 };
@@ -51,44 +72,7 @@ export default {
 #components-layout-demo-top .logo {
   width: 120px;
   height: 31px;
-  background: rgba(255, 255, 255, 0.2);
   margin: 16px 24px 16px 0;
   float: left;
 }
 </style>
-<!--
-<template>
-  <SearchBar @search-user="searchUser" />
-  <div class="container pt-5 mt-5">
-    <router-view />
-  </div>
-</template>
-
-<script>
-import SearchBar from "./components/SearchBar";
-import { mapGetters } from "vuex";
-
-export default {
-  name: "Home",
-  components: {
-    SearchBar,
-  },
-  computed: {
-    ...mapGetters(["users", "message", "alertType"]),
-  },
-  mounted() {
-    this.$store.dispatch("init");
-  },
-  methods: {
-    searchUser(term) {
-      this.$router.push("/");
-      this.$store.dispatch("resetState");
-      console.log("term", term);
-      this.$store.dispatch("searchUser", term);
-    },
-  },
-};
-</script>
-
-<style></style>
--->

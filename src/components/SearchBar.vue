@@ -2,7 +2,7 @@
   <a-input-search
     v-model:value="term"
     placeholder="input search text"
-    style="width: 200px"
+    style="width: 200px; border-radius: 25px"
     size="large"
     @search="termSearch"
     @keyup.enter="termSearch"
@@ -15,6 +15,9 @@ export default {
     return {
       term: "",
     };
+  },
+  props: {
+    firstRender: { type: Boolean },
   },
   methods: {
     termSearch() {
