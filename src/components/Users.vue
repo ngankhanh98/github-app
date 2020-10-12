@@ -1,30 +1,27 @@
 <template>
-  <div class="media text-muted pt-3" v-for="item in items" :key="item.id">
-    <img
-      :src="item.avatar_url"
-      width="30"
-      height="30"
-      class="bd-placeholder-img mr-2 rounded"
-    />
-    <router-link :to="item.login">
-      <div
-        class="media-body pb-3 mb-0 small lh-125 d-flex justify-content-start"
-      >
-        <div>
-          <strong class="text-primary">@{{ item.login }}</strong>
-        </div>
-      </div>
-    </router-link>
-  </div>
+<!-- v-if to hot render -->
+  <a-list item-layout="horizontal" v-if="users" :data-source="users">
+    <template v-slot:renderItem="{ item }">
+      <a-list-item>
+        <a-list-item-meta description="">
+          <template v-slot:title>
+            <router-link :to="item.login">@{{ item.login }}</router-link>
+          </template>
+          <template v-slot:avatar>
+            <a-avatar :src="item.avatar_url" />
+          </template>
+        </a-list-item-meta>
+      </a-list-item>
+    </template>
+  </a-list>
 </template>
 
 <script>
+import { mapGetters } from "vuex";
 export default {
   name: "Users",
-  props: {
-    items: {
-      type: Array,
-    },
+  computed: {
+   ...mapGetters(["users"])
   },
 };
 </script>

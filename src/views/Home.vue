@@ -1,6 +1,5 @@
 <template>
-  <h3 v-if="users">Users</h3>
-  <Users :items="users" />
+  <Users />
   <Alert v-if="message" :message="message" :type="alertType" />
 </template>
 
@@ -16,7 +15,7 @@ export default {
     Alert,
   },
   computed: {
-    ...mapGetters(["users", "message", "alertType"]),
+    ...mapGetters(["message", "alertType"]),
   },
   mounted() {
     this.$store.dispatch("init");
