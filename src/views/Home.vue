@@ -18,6 +18,8 @@ export default {
     ...mapGetters(["message", "alertType"]),
   },
   mounted() {
+    const query = this.$route.query;
+    console.log("query", query);
     this.$store.dispatch("init");
   },
 };
