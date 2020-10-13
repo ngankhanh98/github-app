@@ -1,18 +1,23 @@
 <template>
-  <a-card
-    size="small"
-    :title="name"
-    style="width: 400px; cursor: pointer;margin-bottom: 10px; margin-right:10px"
-    a
-    href="javascript:void(0)"
-    @click="redirectCommit"
-  >
-    <p>{{ description }}</p>
-    <p>
-      <i class="fas fa-star" /> {{ stargazers_count }}
-      <i class="fas fa-ticket-alt" /> {{ open_issues_count }}
-    </p>
-  </a-card>
+  <router-link :to="full_name">
+    <!-- <a-card
+      size="small"
+      :title="name"
+      style="width: 400px; cursor: pointer;margin-bottom: 10px; margin-right:10px"
+      a
+      href="javascript:void(0)"
+      @click="redirectCommit"
+    >
+      <p>{{ description }}</p>
+      <p>
+        <i class="fas fa-star" /> {{ stargazers_count }}
+        <i class="fas fa-ticket-alt" /> {{ open_issues_count }}
+      </p>
+    </a-card> -->
+    <a-card
+      ><p>{{ description }}</p></a-card
+    >
+  </router-link>
 </template>
 
 <script>

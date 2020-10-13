@@ -41,7 +41,6 @@ export default {
         const { login, avatar_url } = info;
         console.log("login", login);
         console.log("avatar_url", avatar_url);
-        // // console.log('object', object)
         return { username: login, avatar_url };
       }
       return false;

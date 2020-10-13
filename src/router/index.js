@@ -20,7 +20,7 @@ const routes = [
       },
       {
         path: '', // GET ?username=abc
-        component: () => import('../views/Home.vue'),
+        component: () => import('../views/SearchResult.vue'),
         props: route => ({ username: route.query.q })
       },
     ]
