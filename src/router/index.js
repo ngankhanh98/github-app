@@ -3,7 +3,7 @@ import MainLayout from '../layouts/Main.vue'
 import AppLayout from '../layouts/App.vue'
 const routes = [
   {
-    path: '/',  
+    path: '/',
     component: MainLayout,
   },
   {
@@ -24,7 +24,7 @@ const routes = [
         props: route => ({ username: route.query.q })
       },
     ]
-  }
+  },
 ]
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
