@@ -16,9 +16,9 @@ export default {
       term: "",
     };
   },
-  props: {
-    firstRender: { type: Boolean },
-  },
+  // props: {
+  //   firstRender: { type: Boolean },
+  // },
   methods: {
     termSearch() {
       console.log("term", this.term);
