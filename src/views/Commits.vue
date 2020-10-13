@@ -29,11 +29,9 @@ export default {
     Commit,
   },
   mounted() {
-    const username = this.$route.params.username;
-    const repos = this.$route.params.repos;
-    console.log("username", username);
-    console.log("repos", repos);
-    this.$store.dispatch("loadCommits", { username, repos });
+    const { username, repository } = this.$route.params;
+    console.log("username, repository", username, repository);
+    this.$store.dispatch("loadCommits", { username, repository });
   },
   computed: {
     ...mapGetters(["commits"]),
@@ -41,10 +39,6 @@ export default {
   data() {
     return {
       pagination: {
-        onChange: (page) => {
-          console.log(page);
-          console.log("this.commits", this.commits);
-        },
         pageSize: 10,
       },
     };

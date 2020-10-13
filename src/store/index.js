@@ -3,7 +3,7 @@ import axios from 'axios'
 
 export default createStore({
   state: {
-    users: null,
+    users: [],
     message: '',
     alertType: '',
     repos: [],
@@ -19,11 +19,6 @@ export default createStore({
     commits: state => state.commits
   },
   mutations: {
-    INIT_STATES(state, payload) {
-      state.users = payload.users
-      state.message = payload.message
-      state.alertType = payload.alertType
-    },
     SEARCH_USERS(state, payload) {
       console.log('payload', payload)
       state.users = payload
@@ -50,12 +45,6 @@ export default createStore({
     }
   },
   actions: {
-    init({ commit }) {
-      const users = null
-      const message = ''
-      const alertType = ''
-      commit('INIT_STATES', { users, message, alertType })
-    },
     searchUser({ commit }, term) {
       return axios
         .get(`https://api.github.com/search/users?q=${term}`)
@@ -83,11 +72,11 @@ export default createStore({
           commit('ERROR', err.message)
         });
     },
-    loadCommits({ commit }, { username, repos }) {
+    loadCommits({ commit }, { username, repository }) {
       console.log('username', username)
-      console.log('repos', repos)
+      console.log('repos', repository)
 
-      return axios.get(`https://api.github.com/repos/${username}/${repos}/commits`).then((result) => {
+      return axios.get(`https://api.github.com/repos/${username}/${repository}/commits`).then((result) => {
         console.log('result.data', result.data)
         commit('LOAD_COMMITS', result.data)
       }).catch((err) => {

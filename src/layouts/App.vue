@@ -7,7 +7,13 @@
         :sub-title="term"
       >
         <template v-slot:extra>
-          <SearchBar @search-user="searchUser" />
+          <a-input-search
+            v-model:value="term"
+            placeholder="input search text"
+            style="width: 200px; border-radius: 25px"
+            size="large"
+            @keyup.enter="onSearch"
+          />
         </template>
       </a-page-header>
       <a-layout-content
@@ -25,11 +31,18 @@
 </template>
 
 <script>
-import SearchBar from "../components/SearchBar";
 export default {
   name: "AppLayout",
-  components: SearchBar,
-  mounted() {
+  data() {
+    return {
+      term: "",
+    };
+  },
+  methods: {
+    onSearch() {
+      console.log("this.term", this.term);
+      this.$router.replace({ path: "/user", query: { username: this.term } });
+    },
   },
 };
 </script>

@@ -15,7 +15,13 @@
             </span></a-row
           >
           <div style="margin-top: 40px;">
-            <SearchBar @search-user="searchUser" />
+            <a-input-search
+              v-model:value="term"
+              placeholder="input search text"
+              style="width: 200px; border-radius: 25px"
+              size="large"
+              @keyup.enter="onSearch"
+            />
           </div>
         </div>
       </a-layout-content>
@@ -24,18 +30,17 @@
 </template>
 
 <script>
-import SearchBar from "../components/SearchBar";
 export default {
   name: "MainLayout",
-  components: SearchBar,
+  data() {
+    return {
+      term: "",
+    };
+  },
   methods: {
-    searchUser(term) {
-    //   this.$router.push("/");
-    //   this.$store.dispatch("resetState");
-      console.log("term", term);
-    //   this.$store.dispatch("searchUser", term);
-    //   this.term = term;
-    //   this.firstRender = false;
+    onSearch() {
+      console.log("this.term", this.term);
+      this.$router.push(`user?username=${this.term}`);
     },
   },
 };
