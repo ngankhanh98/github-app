@@ -1,21 +1,20 @@
 <template>
-  <div style="display: flex; ">
-    <PersonalBar v-show="userInfo" :user="userInfo" />
-    <div
-      style="
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;"
-    >
-      <ReposCard
-        v-for="repo in repos"
-        :key="repo.id"
-        :name="repo.name"
-        :description="repo.description"
-        :stargazers_count="repo.stargazers_count"
-        :open_issues_count="repo.open_issues_count"
-        :full_name="repo.full_name"
-      />
+  <div class="flex justify-center">
+    <PersonalBar v-show="detail" :user="detail" />
+    <div>
+      <div class="ml-8"><h2>Repositories</h2></div>
+      <div class="ml-4 grid grid-cols-2 gap-1 auto-rows-max">
+        <ReposCard
+          v-for="repo in repos"
+          :key="repo.id"
+          :name="repo.name"
+          :description="repo.description"
+          :stargazers_count="repo.stargazers_count"
+          :open_issues_count="repo.open_issues_count"
+          :full_name="repo.full_name"
+          :forks_count="repo.forks_count"
+        />
+      </div>
     </div>
   </div>
 </template>
@@ -32,7 +31,7 @@ export default {
     PersonalBar,
   },
   computed: {
-    ...mapGetters(["repos"]),
+    ...mapGetters(["repos", "detail"]),
     userInfo() {
       const info = this.$store.state?.users?.[0];
       console.log("info", info);
@@ -47,10 +46,11 @@ export default {
     },
   },
   mounted() {
-    const username = this.$route.params.username;
+    const { username } = this.$route.params;
     console.log("username", username);
     this.$store.dispatch("loadRepos", username);
     this.$store.dispatch("searchUser", username);
+    this.$store.dispatch("loadUserDetail", username);
 
     const repos = this.$state;
     console.log("repos", repos);

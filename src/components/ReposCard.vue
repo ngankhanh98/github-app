@@ -1,22 +1,24 @@
 <template>
   <router-link :to="full_name">
-    <!-- <a-card
-      size="small"
-      :title="name"
-      style="width: 400px; cursor: pointer;margin-bottom: 10px; margin-right:10px"
-      a
-      href="javascript:void(0)"
-      @click="redirectCommit"
+    <div
+      class="rounded overflow-hidden rounded-lg border mx-4 my-4 flex justify-between flex-col"
+      style="height:150px"
     >
-      <p>{{ description }}</p>
-      <p>
-        <i class="fas fa-star" /> {{ stargazers_count }}
-        <i class="fas fa-ticket-alt" /> {{ open_issues_count }}
-      </p>
-    </a-card> -->
-    <a-card
-      ><p>{{ description }}</p></a-card
-    >
+      <div class="px-6 py-4 overflow-hidden h-100">
+        <div class="font-bold text-lg mb-2">{{ name }}</div>
+        <p class="text-gray-700 text-base">
+          <small>{{ description }}</small>
+        </p>
+      </div>
+      <div class="px-6 pb-4">
+        <span class="inline-block text-sm font-semibold text-gray-700 mr-4">
+          <i class="far fa-star mr-1" />{{ stargazers_count }}
+        </span>
+        <span class="inline-block text-sm font-semibold text-gray-700">
+          <i class="fas fa-code-branch mr-1" />{{ forks_count }}
+        </span>
+      </div>
+    </div>
   </router-link>
 </template>
 
@@ -27,6 +29,7 @@ export default {
     name: { type: String },
     description: { type: String },
     stargazers_count: { type: Number },
+    forks_count: { type: Number },
     open_issues_count: { type: Number },
     full_name: { type: String },
   },

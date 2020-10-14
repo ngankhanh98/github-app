@@ -7,7 +7,8 @@ export default createStore({
     message: '',
     alertType: '',
     repos: [],
-    commits: []
+    commits: [],
+    detail: {}
   },
   getters: {
     users: state => {
@@ -16,7 +17,8 @@ export default createStore({
     message: state => { return state.message },
     alertType: state => state.alertType,
     repos: state => state.repos,
-    commits: state => state.commits
+    commits: state => state.commits,
+    detail: state => state.detail
   },
   mutations: {
     SEARCH_USERS(state, payload) {
@@ -42,6 +44,10 @@ export default createStore({
     LOAD_COMMITS(state, payload) {
       state.commits = payload
       console.log('state.commits', state.commits)
+    },
+    LOAD_USER_DETAIL(state, { data }) {
+      state.detail = { ...data }
+      console.log('state.detail', state.detail)
     }
   },
   actions: {
@@ -79,6 +85,14 @@ export default createStore({
       return axios.get(`https://api.github.com/repos/${username}/${repository}/commits`).then((result) => {
         console.log('result.data', result.data)
         commit('LOAD_COMMITS', result.data)
+      }).catch((err) => {
+        commit('ERROR', err.message)
+      });
+    },
+    loadUserDetail({ commit }, username) {
+      console.log('username', username)
+      return axios.get(`https://api.github.com/users/${username}`).then((result) => {
+        commit('LOAD_USER_DETAIL', result)
       }).catch((err) => {
         commit('ERROR', err.message)
       });
