@@ -25,9 +25,18 @@
               />
               <!-- <a-timeline v-for="i in item" :key="i">
                 <a-timeline-item>
-                  {{i}}
+                  {{ item.commit.author.date }}
                 </a-timeline-item>
-              </a-timeline> -->
+              </a-timeline>
+              <Commit
+                :key="item.sha"
+                :message="item.commit.message"
+                :author="item.commit.author.name"
+                :html_url="item.html_url"
+                :avatar_url="item.author.avatar_url"
+                :date="item.commit.author.date"
+                class="rounded-lg border my-1"
+              />-->
             </template>
           </a-list>
         </div>
