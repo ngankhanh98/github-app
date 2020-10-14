@@ -1,31 +1,46 @@
 <template>
-  <div>
-    <a-layout class="layout">
-      <a-layout-content>
+  <!--
+  Tailwind UI components require Tailwind CSS v1.8 and the @tailwindcss/ui plugin.
+  Read the documentation to get started: https://tailwindui.com/documentation
+-->
+  <div
+    class="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8"
+  >
+    <div class="max-w-lg w-full">
+      <div>
+        <img
+          class="mx-auto h-20 w-auto"
+          src="logo-120px.png"
+          alt="Github"
+        />
+      </div>
+
+      <div class="mt-6">
         <div
-          :style="{ background: '#fff', padding: '100px', minHeight: '380px' }"
-          flex="auto"
-          justify="space-around"
-          align="middle"
+          class="flex items-center border-b border-teal-500 py-2 px-2  rounded-full border focus:shadow-xl focus:outline-none"
         >
-          <a-row> <i class="fab fa-github" style="font-size:500%"></i> </a-row>
-          <a-row>
-            <span style="font-family: 'Poppins', sans-serif; font-size: 30px;">
-              Github
-            </span></a-row
-          >
-          <div style="margin-top: 40px;">
-            <a-input-search
-              v-model:value="term"
-              placeholder="input search text"
-              style="width: 200px; border-radius: 25px"
-              size="large"
-              @keyup.enter="onSearch"
-            />
-          </div>
+          <i class=" fas fa-search flex-shrink-0 py-2 px-2"> </i>
+          <input
+            required
+            class="appearance-none  h-10 relative block w-full placeholder-gray-500 text-gray-900 rounded focus:outline-none focus:shadow-outline-blue focus:border-blue-300 focus:z-10 sm:text-sm sm:leading-5 "
+            type="text"
+            placeholder="Search username..."
+            @keyup.enter="onSearch"
+            v-model="term"
+          />
         </div>
-      </a-layout-content>
-    </a-layout>
+      </div>
+
+      <div class="mt-6 flex justify-center ">
+        <button
+          type="submit"
+          class="group relative py-2 px-4 text-sm leading-5 font-medium rounded-md text-white bg-gray-800 hover:bg-gray-600 focus:outline-none focus:bg-gray-900 focus:shadow-outline-indigo active:bg-indigo-700 transition duration-150 ease-in-out"
+          @click="onSearch"
+        >
+          Github Search
+        </button>
+      </div>
+    </div>
   </div>
 </template>
 
