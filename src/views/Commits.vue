@@ -14,14 +14,15 @@
             <template v-slot:renderItem="{ item }">
               <!-- {{item}} -->
               <Commit
-                  :key="item.sha"
-                  :message="item.commit.message"
-                  :author="item.author.login"
-                  :html_url="item.html_url"
-                  :avatar_url="item.author.avatar_url"
-                  :date="item.commit.author.date"
-                  class="rounded-lg border my-1"
-                />
+                :v-for="item"
+                :key="item.sha"
+                :message="item.commit.message"
+                :author="item.author.login"
+                :html_url="item.html_url"
+                :avatar_url="item.author.avatar_url"
+                :date="item.commit.author.date"
+                class="rounded-lg border my-1"
+              />
               <!-- <a-timeline v-for="i in item" :key="i">
                 <a-timeline-item>
                   {{i}}
@@ -37,11 +38,11 @@
 
 <script>
 import { mapGetters } from "vuex";
-// import Commit from "../components/Commit";
+import Commit from "../components/Commit";
 export default {
   name: "Commits",
   components: {
-    // Commit,
+    Commit,
   },
   mounted() {
     const { username, repository } = this.$route.params;
