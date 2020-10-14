@@ -9,7 +9,7 @@
                 <img
                   class="h-8 w-8"
                   src="logo-light-64px.png"
-                  alt="Workflow logo"
+                  alt="Github"
                 />
               </router-link>
             </div>
