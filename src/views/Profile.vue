@@ -1,9 +1,9 @@
 <template>
-  <div class="flex justify-center">
+  <div class="flex">
     <PersonalBar v-show="detail" :user="detail" />
-    <div>
-      <div class="ml-8"><h2>Repositories</h2></div>
-      <div class="ml-4 grid grid-cols-2 gap-1 auto-rows-max">
+    <div class="flex-auto">
+      <div class="ml-8 text-lg">Repositories</div>
+      <div class="ml-4 grid grid-cols-2 gap-1 ">
         <ReposCard
           v-for="repo in repos"
           :key="repo.id"
