@@ -4,8 +4,8 @@
     <!-- <span class="font-bold text-2xl">{{ user.name }}</span>
     <span class="text-xl">{{ user.login }} </span> -->
     <div class="flex flex-col mt-4">
-      <span class="font-bold text-2xl text-center">Khánh</span>
-      <span class="text-xl text-center">ngankhanh98 </span>
+      <span class="font-bold text-2xl text-center">{{ user.name }}</span>
+      <span class="text-xl text-center">{{ user.login }} </span>
     </div>
     <span class="my-4 text-xl text-gray-600 w-full">
       <small>{{ user.bio }} </small></span
