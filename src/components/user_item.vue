@@ -84,15 +84,11 @@
   </tr>
 </template>
 <script>
-// import { mapGetters } from "vuex";
 export default {
   name: "Users",
   props: {
     user: { type: Object },
   },
-  // computed: {
-  //   ...mapGetters(["users"]),
-  // },
 };
 </script>
 

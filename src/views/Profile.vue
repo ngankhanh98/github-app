@@ -45,11 +45,11 @@ export default {
       return false;
     },
   },
-  mounted() {
+
+  beforeMount() {
     const { username } = this.$route.params;
     console.log("username", username);
     this.$store.dispatch("loadRepos", username);
-    this.$store.dispatch("searchUser", username);
     this.$store.dispatch("loadUserDetail", username);
 
     const repos = this.$state;

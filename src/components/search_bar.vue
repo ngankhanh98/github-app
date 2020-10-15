@@ -15,7 +15,7 @@ export default {
     };
   },
   props: {
-    searchBtnClick: { type: String },
+    searchBtnClick: { type: Number },
   },
   methods: {
     onSearch() {

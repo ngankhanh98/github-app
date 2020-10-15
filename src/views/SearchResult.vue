@@ -1,6 +1,8 @@
 <template>
-  <!-- <Users /> -->
-  <div class="flex flex-col">
+  <!-- Spinner -->
+  <a-spin v-if="!users && !alert" />
+  <!-- Search result -->
+  <div v-else-if="users" class="flex flex-col">
     <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
       <div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
         <div
@@ -23,55 +25,28 @@
             </thead>
             <tbody class="bg-white divide-y divide-gray-200">
               <UserItem v-for="user in users" :user="user" :key="user.login" />
-              <!-- <tr v-for="item in users" :key="item.id">
-                <td class="px-6 py-4 whitespace-no-wrap">
-                  <router-link :to="'/user/' + item.login">
-                    <div class="flex items-center">
-                      <div class="flex-shrink-0 h-10 w-10">
-                        <img
-                          class="h-10 w-10 rounded-full"
-                          :src="item.avatar_url"
-                          alt=""
-                        />
-                      </div>
-                      <div class="ml-4">
-                        <div
-                          class="text-sm leading-5 font-medium text-gray-900"
-                        >
-                          {{ item.login }}
-                        </div>
-                        <div class="text-sm leading-5 text-gray-500">
-                          {{ item.html_url }}
-                        </div>
-                      </div>
-                    </div>
-                  </router-link>
-                </td>
-                <td class="px-6 py-4 whitespace-no-wrap">
-                  <div class="text-sm leading-5 text-gray-900">
-                    {{ item.type }}
-                  </div>
-                </td>
-              </tr> -->
             </tbody>
           </table>
         </div>
       </div>
     </div>
   </div>
+  <!-- Alert -->
+  <Alert v-if="alert" :message="alert.message" :type="alert.type" />
 </template>
 
 <script>
 import UserItem from "../components/user_item";
+import Alert from "../components/alert";
 import { mapGetters } from "vuex";
 
 export default {
   components: {
     UserItem,
+    Alert,
   },
-
   computed: {
-    ...mapGetters(["users"]),
+    ...mapGetters(["users", "alert"]),
   },
 };
 </script>

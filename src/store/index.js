@@ -3,39 +3,30 @@ import axios from 'axios'
 
 export default createStore({
   state: {
-    users: [],
-    message: '',
-    alertType: '',
-    repos: [],
-    commits: [],
-    detail: {}
+    users: Array,
+    alert: Object, // type, message
+    repos: Array,
+    commits: Array,
+    detail: Object
   },
   getters: {
-    users: state => {
-      return state.users;
-    },
-    message: state => { return state.message },
-    alertType: state => state.alertType,
+    users: state => state.users,
+    alert: state => state.alert,
     repos: state => state.repos,
     commits: state => state.commits,
     detail: state => state.detail
   },
   mutations: {
     SEARCH_USERS(state, payload) {
-      console.log('payload', payload)
       state.users = payload
       console.log('state.users', state.users)
     },
-    ERROR(state, { message }) {
-      state.alertType = 'alert-warning'
-      state.message = message
+    SET_ALERT(state, payload) {
+      state.alert = { ...payload }
     },
     RESET_STATE(state) {
-      state.users = null
-      state.message = ''
-      state.alertType = ''
-      state.repos = null
-      state.commits = []
+      const states = Object.keys(state)
+      states.forEach(item => state[item] = null)
     },
     LOAD_REPOS(state, { data }) {
       state.repos = data
@@ -48,6 +39,9 @@ export default createStore({
     LOAD_USER_DETAIL(state, { data }) {
       state.detail = { ...data }
       console.log('state.detail', state.detail)
+    },
+    CLEAR_ALERT(state) {
+      state.alert = {}
     }
   },
   actions: {
@@ -55,11 +49,14 @@ export default createStore({
       return axios
         .get(`https://api.github.com/search/users?q=${term}`)
         .then((result) => {
-          commit('SEARCH_USERS', result.data.items)
-          console.log('result.data.items', result.data.items)
+          if (result.data.total_count)
+            commit('SEARCH_USERS', result.data.items)
+          else
+            commit('SET_ALERT', { type: 'error', message: "Username not found" })
+
         })
         .catch((err) => {
-          commit('ERROR', err.response.data.errors[0])
+          commit('SET_ALERT', { type: 'error', message: err.response.data.errors[0] })
         });
     },
     resetState({ commit }) {
@@ -75,7 +72,7 @@ export default createStore({
           commit('LOAD_REPOS', result)
         })
         .catch((err) => {
-          commit('ERROR', err.message)
+          commit('SET_ALERT', { type: 'error', message: err.message })
         });
     },
     loadCommits({ commit }, { username, repository }) {
@@ -86,7 +83,7 @@ export default createStore({
         console.log('result.data', result.data)
         commit('LOAD_COMMITS', result.data)
       }).catch((err) => {
-        commit('ERROR', err.message)
+        commit('SET_ALERT', { type: 'error', message: err.message })
       });
     },
     loadUserDetail({ commit }, username) {
@@ -94,8 +91,11 @@ export default createStore({
       return axios.get(`https://api.github.com/users/${username}`).then((result) => {
         commit('LOAD_USER_DETAIL', result)
       }).catch((err) => {
-        commit('ERROR', err.message)
+        commit('SET_ALERT', { type: 'error', message: err.message })
       });
+    },
+    clearAlert({ commit }) {
+      commit('CLEAR_ALERT')
     }
   },
   modules: {
