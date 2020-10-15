@@ -33,12 +33,12 @@ export default {
     open_issues_count: { type: Number },
     full_name: { type: String },
   },
-  methods: {
-    redirectCommit() {
-      console.log("this.full_name", this.full_name);
-      this.$router.push(`/${this.full_name}`);
-    },
-  },
+  // methods: {
+  //   redirectCommit() {
+  //     console.log("this.full_name", this.full_name);
+  //     this.$router.push(`/${this.full_name}`);
+  //   },
+  // },
 };
 </script>
 

@@ -19,17 +19,16 @@ export default {
   },
   methods: {
     onSearch() {
-      console.log("this.term", this.term);
+      this.$store.dispatch("resetState");
       this.$store.dispatch("searchUser", this.term);
       this.$router.replace({ path: "/user", query: { username: this.term } });
     },
   },
   watch: {
-    searchBtnClick(newValue) {
-      console.log(newValue);
+    searchBtnClick() {
+      this.$store.dispatch("resetState");
       this.$store.dispatch("searchUser", this.term);
       this.$router.replace({ path: "/user", query: { username: this.term } });
-
     },
   },
 };
