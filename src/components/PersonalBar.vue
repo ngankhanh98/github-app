@@ -1,8 +1,12 @@
 <template>
   <div class="flex flex-col" style="width:300px">
     <a-avatar v-show="user.avatar_url" :src="user.avatar_url" :size="300" />
-    <span class="font-bold text-2xl">{{ user.name }}</span>
-    <span class="text-xl">{{ user.login }} </span>
+    <!-- <span class="font-bold text-2xl">{{ user.name }}</span>
+    <span class="text-xl">{{ user.login }} </span> -->
+    <div class="justify-center">
+      <span class="font-bold text-2xl">Khánh</span>
+      <span class="text-xl">ngankhanh98 </span>
+    </div>
     <span class="my-4 text-xl text-gray-600 w-full">
       <small>{{ user.bio }} </small></span
     >
