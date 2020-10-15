@@ -3,9 +3,9 @@
     <a-avatar v-show="user.avatar_url" :src="user.avatar_url" :size="300" />
     <!-- <span class="font-bold text-2xl">{{ user.name }}</span>
     <span class="text-xl">{{ user.login }} </span> -->
-    <div class="justify-center">
-      <span class="font-bold text-2xl">Khánh</span>
-      <span class="text-xl">ngankhanh98 </span>
+    <div class="flex flex-col mt-4">
+      <span class="font-bold text-2xl text-center">Khánh</span>
+      <span class="text-xl text-center">ngankhanh98 </span>
     </div>
     <span class="my-4 text-xl text-gray-600 w-full">
       <small>{{ user.bio }} </small></span
