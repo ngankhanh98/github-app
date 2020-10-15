@@ -20,8 +20,8 @@
 </template>
 
 <script>
-import ReposCard from "../components/ReposCard";
-import PersonalBar from "../components/PersonalBar";
+import ReposCard from "../components/repos_card";
+import PersonalBar from "../components/personal_bar";
 import { mapGetters } from "vuex";
 
 export default {

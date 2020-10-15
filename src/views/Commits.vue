@@ -43,7 +43,7 @@
 <script>
 import { mapGetters } from "vuex";
 import moment from "moment";
-import Commit from "../components/Commit";
+import Commit from "../components/commit";
 export default {
   name: "Commits",
   components: {
