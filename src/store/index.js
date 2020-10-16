@@ -3,42 +3,31 @@ import axios from 'axios'
 
 export default createStore({
   state: {
-    users: null,
-    message: '',
-    alertType: '',
-    repos: [],
-    commits: []
+    users: Array,
+    alert: Object, // type, message
+    repos: Array,
+    commits: Array,
+    detail: Object
   },
   getters: {
-    users: state => {
-      return state.users;
-    },
-    message: state => { return state.message },
-    alertType: state => state.alertType,
+    users: state => state.users,
+    alert: state => state.alert,
     repos: state => state.repos,
-    commits: state => state.commits
+    commits: state => state.commits,
+    detail: state => state.detail
   },
   mutations: {
-    INIT_STATES(state, payload) {
-      state.users = payload.users
-      state.message = payload.message
-      state.alertType = payload.alertType
-    },
     SEARCH_USERS(state, payload) {
-      console.log('payload', payload)
       state.users = payload
       console.log('state.users', state.users)
     },
-    ERROR(state, { message }) {
-      state.alertType = 'alert-warning'
-      state.message = message
+    SET_ALERT(state, payload) {
+      state.alert = { ...payload }
     },
     RESET_STATE(state) {
-      state.users = null
-      state.message = ''
-      state.alertType = ''
-      state.repos = null
-      state.commits = []
+      const states = Object.keys(state)
+      states.forEach(item => state[item] = null)
+      console.log('state', state)
     },
     LOAD_REPOS(state, { data }) {
       state.repos = data
@@ -47,24 +36,28 @@ export default createStore({
     LOAD_COMMITS(state, payload) {
       state.commits = payload
       console.log('state.commits', state.commits)
+    },
+    LOAD_USER_DETAIL(state, { data }) {
+      state.detail = { ...data }
+      console.log('state.detail', state.detail)
+    },
+    CLEAR_ALERT(state) {
+      state.alert = { type: '', message: '' }
     }
   },
   actions: {
-    init({ commit }) {
-      const users = null
-      const message = ''
-      const alertType = ''
-      commit('INIT_STATES', { users, message, alertType })
-    },
     searchUser({ commit }, term) {
       return axios
-        .get(`https://api.github.com/search/users?q=user:${term}`)
+        .get(`https://api.github.com/search/users?q=${term}`)
         .then((result) => {
-          commit('SEARCH_USERS', result.data.items)
-          // console.log('result.data.items', result.data.items)
+          if (result.data.total_count)
+            commit('SEARCH_USERS', result.data.items)
+          else
+            commit('SET_ALERT', { type: 'error', message: "Username not found" })
+
         })
         .catch((err) => {
-          commit('ERROR', err.response.data.errors[0])
+          commit('SET_ALERT', { type: 'error', message: err.response.data.message })
         });
     },
     resetState({ commit }) {
@@ -80,19 +73,30 @@ export default createStore({
           commit('LOAD_REPOS', result)
         })
         .catch((err) => {
-          commit('ERROR', err.message)
+          commit('SET_ALERT', { type: 'error', message: err.response.data.message })
         });
     },
-    loadCommits({ commit }, { username, repos }) {
+    loadCommits({ commit }, { username, repository }) {
       console.log('username', username)
-      console.log('repos', repos)
+      console.log('repos', repository)
 
-      return axios.get(`https://api.github.com/repos/${username}/${repos}/commits`).then((result) => {
+      return axios.get(`https://api.github.com/repos/${username}/${repository}/commits`).then((result) => {
         console.log('result.data', result.data)
         commit('LOAD_COMMITS', result.data)
       }).catch((err) => {
-        commit('ERROR', err.message)
+        commit('SET_ALERT', { type: 'error', message: err.response.data.message })
       });
+    },
+    loadUserDetail({ commit }, username) {
+      console.log('username', username)
+      return axios.get(`https://api.github.com/users/${username}`).then((result) => {
+        commit('LOAD_USER_DETAIL', result)
+      }).catch((err) => {
+        commit('SET_ALERT', { type: 'error', message: err.response.data.message })
+      });
+    },
+    clearAlert({ commit }) {
+      commit('CLEAR_ALERT')
     }
   },
   modules: {

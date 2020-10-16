@@ -18,3 +18,4 @@ Because this is a training material, some helpful resources will be included and
 - [ ] [State Management with Composition API](https://vueschool.io/articles/vuejs-tutorials/state-management-with-composition-api/)
 - [ ] [Ant Design for Vue](https://2x.antdv.com/docs/vue/introduce/)
 - [ ] [JavaScript](https://javascript.info/)
+- [ ] [Watch for Vuex State changes!](https://dev.to/viniciuskneves/watch-for-vuex-state-changes-2mgj)

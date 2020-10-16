@@ -1,11 +1,9 @@
 <template>
-  <div class="d-flex flex-row">
-    <div class="flex-shrink-0 col-12 col-md-3 mb-4 mb-md-0">
-      <PersonalBar v-show="userInfo" :user="userInfo" />
-    </div>
-    <div class="flex-shrink-0 col-12 col-md-10 mb-4 mb-md-0">
-      <h5>Repositories</h5>
-      <div class="d-flex flex-row flex-wrap">
+  <div class="flex" v-if="detail">
+    <PersonalBar v-if="detail" :user="detail" />
+    <div class="flex-auto">
+      <div class="ml-8 text-lg">Repositories</div>
+      <div class="ml-4 grid grid-cols-2 gap-1 ">
         <ReposCard
           v-for="repo in repos"
           :key="repo.id"
@@ -14,7 +12,7 @@
           :stargazers_count="repo.stargazers_count"
           :open_issues_count="repo.open_issues_count"
           :full_name="repo.full_name"
-          class="col-md-5 m-1"
+          :forks_count="repo.forks_count"
         />
       </div>
     </div>
@@ -22,8 +20,8 @@
 </template>
 
 <script>
-import ReposCard from "../components/ReposCard";
-import PersonalBar from "../components/PersonalBar";
+import ReposCard from "../components/repos_card";
+import PersonalBar from "../components/personal_bar";
 import { mapGetters } from "vuex";
 
 export default {
@@ -33,29 +31,17 @@ export default {
     PersonalBar,
   },
   computed: {
-    ...mapGetters(["repos"]),
-    userInfo() {
-      const info = this.$store.state?.users?.[0];
-      console.log("info", info);
-      if (info !== undefined) {
-        console.log("info", info);
-        const { login, avatar_url } = info;
-        console.log("login", login);
-        console.log("avatar_url", avatar_url);
-        // // console.log('object', object)
-        return { username: login, avatar_url };
-      }
-      return false;
-    },
+    ...mapGetters(["repos", "detail"]),
   },
-  mounted() {
-    const username = this.$route.params.username;
-    console.log("username", username);
-    this.$store.dispatch("loadRepos", username);
-    this.$store.dispatch("searchUser", username);
-
-    const repos = this.$state;
-    console.log("repos", repos);
+  async created() {
+    const { username } = this.$route.params;
+    await this.LoadReposAndUserDetail(username);
+  },
+  methods: {
+    async LoadReposAndUserDetail(username) {
+      await this.$store.dispatch("loadRepos", username);
+      await this.$store.dispatch("loadUserDetail", username);
+    },
   },
 };
 </script>

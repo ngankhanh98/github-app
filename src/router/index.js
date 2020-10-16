@@ -1,24 +1,31 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import Home from '../views/Home.vue'
-
+import MainLayout from '../layouts/Main.vue'
+import AppLayout from '../layouts/App.vue'
 const routes = [
   {
     path: '/',
-    name: 'Home',
-    component: Home
+    component: MainLayout,
   },
   {
-    path: '/:username',
-    name: 'Profile',
-    component: () => import(/* webpackChunkName: "about" */ '../views/Profile.vue')
-  },
-  {
-    path: '/:username/:repos',
-    name: 'Commits',
-    component: () => import(/* webpackChunkName: "about" */ '../views/Commits.vue')
+    path: '/user',
+    component: AppLayout,
+    children: [
+      {
+        path: ':username',
+        component: () => import('../views/Profile.vue'),
+      },
+      {
+        path: ':username/:repository',
+        component: () => import('../views/Commits.vue'),
+      },
+      {
+        path: '', // GET ?username=abc
+        component: () => import('../views/SearchResult.vue'),
+        props: route => ({ username: route.query.q })
+      },
+    ]
   },
 ]
-
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes
