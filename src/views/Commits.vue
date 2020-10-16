@@ -40,7 +40,7 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
+// import { mapGetters } from "vuex";
 import moment from "moment";
 import Commit from "../components/commit";
 export default {
@@ -59,11 +59,12 @@ export default {
     );
   },
   computed: {
-    ...mapGetters(["commits"]),
+    // ...mapGetters(["commits"]),
     groupCommits() {
       console.log("computed");
-      if (this.commits == null || this.commits == undefined) return null;
-      return this.commits.reduce((r, a) => {
+      const commits = JSON.stringify(this.$store.state.commits);
+      if (commits == undefined || commits == null) return null;
+      return commits.reduce((r, a) => {
         r[moment(a.commit.author.date).format("L")] = [
           ...(r[moment(a.commit.author.date).format("L")] || []),
           a,

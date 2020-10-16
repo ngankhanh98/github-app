@@ -1,6 +1,6 @@
 <template>
-  <div class="flex" v-if="userInfo">
-    <PersonalBar v-show="detail" :user="detail" />
+  <div class="flex" v-if="detail">
+    <PersonalBar v-if="detail" :user="detail" />
     <div class="flex-auto">
       <div class="ml-8 text-lg">Repositories</div>
       <div class="ml-4 grid grid-cols-2 gap-1 ">
@@ -32,28 +32,16 @@ export default {
   },
   computed: {
     ...mapGetters(["repos", "detail"]),
-    userInfo() {
-      const info = this.$store.state?.users?.[0];
-      console.log("info", info);
-      if (info === undefined || info === null) {
-        return false;
-      }
-      console.log("info", info);
-      const { login, avatar_url } = info;
-      console.log("login", login);
-      console.log("avatar_url", avatar_url);
-      return { username: login, avatar_url };
-    },
   },
-
-  beforeMount() {
+  created() {
     const { username } = this.$route.params;
-    console.log("username", username);
-    this.$store.dispatch("loadRepos", username);
-    this.$store.dispatch("loadUserDetail", username);
-
-    const repos = this.$state;
-    console.log("repos", repos);
+    this.Load(username);
+  },
+  methods: {
+    async Load(username) {
+      await this.$store.dispatch("loadRepos", username);
+      await this.$store.dispatch("loadUserDetail", username);
+    },
   },
 };
 </script>
