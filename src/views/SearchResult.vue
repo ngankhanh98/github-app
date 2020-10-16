@@ -2,7 +2,7 @@
   <!-- Spinner -->
   <a-spin v-if="!users && !alert" />
   <!-- Search result -->
-  <div v-else-if="users" class="flex flex-col">
+  <div v-if="users" class="flex flex-col">
     <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
       <div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
         <div
@@ -42,7 +42,18 @@ export default {
     UserItem,
   },
   computed: {
-    ...mapGetters(["users", "alert"]),
+    ...mapGetters(["alert", "users"]),
+  },
+  async created() {
+    console.log("create");
+    const { username } = this.$route.query;
+    console.log("username", username);
+    if (!JSON.stringify(this.users)) await this.SearchUser(username);
+  },
+  methods: {
+    async SearchUser(username) {
+      await this.$store.dispatch("searchUser", username);
+    },
   },
 };
 </script>

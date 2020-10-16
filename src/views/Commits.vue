@@ -72,18 +72,6 @@ export default {
   },
   computed: {
     ...mapGetters(["commits"]),
-    // groupCommits() {
-    //   console.log("commits", this.$store.state.commits);
-    //   const commits = this.$store.state.commits;
-    //   if (commits == undefined || commits == null) return null;
-    //   return commits.reduce((r, a) => {
-    //     r[moment(a.commit.author.date).format("L")] = [
-    //       ...(r[moment(a.commit.author.date).format("L")] || []),
-    //       a,
-    //     ];
-    //     return r;
-    //   }, {});
-    // },
   },
 
   data() {

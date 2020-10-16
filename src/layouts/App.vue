@@ -6,7 +6,7 @@
           <div class="flex items-center">
             <div class="flex-shrink-0">
               <router-link :to="'/'">
-                <img class="h-8 w-8" src="logo-light-64px.png" alt="Github" />
+                <i class="fab fa-github text-white text-2xl"></i>
               </router-link>
             </div>
             <div class="hidden md:block">
@@ -34,7 +34,6 @@
     <main>
       <div class="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
         <div class="px-4 py-6 sm:px-0">
-         
           <router-view />
           <!-- Alert -->
           <Alert
