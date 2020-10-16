@@ -19,3 +19,22 @@ Because this is a training material, some helpful resources will be included and
 - [ ] [Ant Design for Vue](https://2x.antdv.com/docs/vue/introduce/)
 - [ ] [JavaScript](https://javascript.info/)
 - [ ] [Watch for Vuex State changes!](https://dev.to/viniciuskneves/watch-for-vuex-state-changes-2mgj)
+
+
+// Lời dạn
+components/search_bar.vue -> SearchBar -> keyup.on emit sự kiện lên cha thôi, cha sử lý state
+search_bar và search_button -> slot / renderless
+https://learn-vuejs.github.io/vue-patterns/patterns/#component-declaration
+VueFront
+stateful vs stateless components
+
+// components không đụng chạm state, chỉ emit sự kiện lên views 
+// nếu viết sự kiện trong component thì không tận dụng được component, nếu chỉ emit sự kiện ra cho views cha, view cha tự biết các xử lý, tùy chỗ component có mặt trong views
+
+// TODO: tách store, optimised
+// có khi mình viết component cho người khác dùng
+// renderless
+// stateless, renderless giống giống abstract
+
+// TODO: NestJS 
+// TODO: ERD drawio: overview, 3 first 

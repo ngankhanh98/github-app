@@ -63,7 +63,6 @@ export default createStore({
     resetState({ commit }) {
       commit('RESET_STATE')
     },
-
     loadRepos({ commit }, username) {
       console.log('username', username)
       return axios
