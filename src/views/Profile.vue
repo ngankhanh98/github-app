@@ -1,6 +1,6 @@
 <template>
-  <div class="flex">
-    <PersonalBar v-show="detail" :user="detail" />
+  <div class="flex" v-if="detail">
+    <PersonalBar v-if="detail" :user="detail" />
     <div class="flex-auto">
       <div class="ml-8 text-lg">Repositories</div>
       <div class="ml-4 grid grid-cols-2 gap-1 ">
@@ -20,8 +20,8 @@
 </template>
 
 <script>
-import ReposCard from "../components/ReposCard";
-import PersonalBar from "../components/PersonalBar";
+import ReposCard from "../components/repos_card";
+import PersonalBar from "../components/personal_bar";
 import { mapGetters } from "vuex";
 
 export default {
@@ -32,28 +32,16 @@ export default {
   },
   computed: {
     ...mapGetters(["repos", "detail"]),
-    userInfo() {
-      const info = this.$store.state?.users?.[0];
-      console.log("info", info);
-      if (info !== undefined) {
-        console.log("info", info);
-        const { login, avatar_url } = info;
-        console.log("login", login);
-        console.log("avatar_url", avatar_url);
-        return { username: login, avatar_url };
-      }
-      return false;
-    },
   },
-  mounted() {
+  async created() {
     const { username } = this.$route.params;
-    console.log("username", username);
-    this.$store.dispatch("loadRepos", username);
-    this.$store.dispatch("searchUser", username);
-    this.$store.dispatch("loadUserDetail", username);
-
-    const repos = this.$state;
-    console.log("repos", repos);
+    await this.LoadReposAndUserDetail(username);
+  },
+  methods: {
+    async LoadReposAndUserDetail(username) {
+      await this.$store.dispatch("loadRepos", username);
+      await this.$store.dispatch("loadUserDetail", username);
+    },
   },
 };
 </script>

@@ -5,7 +5,7 @@
     <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
       <div class="py-6 align-middle inline-block min-w-full sm:px-6 lg:px-8">
         <div class="sm:rounded-lg">
-          <a-timeline  >
+          <a-timeline v-if="groupCommits">
             <a-timeline-item
               v-for="date in Object.keys(groupCommits)"
               :key="date"
@@ -15,7 +15,6 @@
               <a-list
                 item-layout="vertical"
                 size="large"
-               
                 :data-source="groupCommits[date]"
               >
                 <template v-slot:renderItem="item">
@@ -43,21 +42,26 @@
 <script>
 import { mapGetters } from "vuex";
 import moment from "moment";
-import Commit from "../components/Commit";
+import Commit from "../components/commit";
 export default {
   name: "Commits",
   components: {
     Commit,
   },
-  mounted() {
+  created() {
     const { username, repository } = this.$route.params;
-    console.log("username, repository", username, repository);
-    this.$store.dispatch("loadCommits", { username, repository });
+    this.LoadCommits(username, repository);
   },
-  computed: {
-    ...mapGetters(["commits"]),
-    groupCommits() {
-      return this.commits.reduce((r, a) => {
+  methods: {
+    async LoadCommits(username, repository) {
+      await this.$store.dispatch("loadCommits", { username, repository });
+    },
+  },
+  watch: {
+    commits(newValue) {
+     
+      const commits = newValue;
+      this.groupCommits = commits?.reduce((r, a) => {
         r[moment(a.commit.author.date).format("L")] = [
           ...(r[moment(a.commit.author.date).format("L")] || []),
           a,
@@ -66,11 +70,16 @@ export default {
       }, {});
     },
   },
+  computed: {
+    ...mapGetters(["commits"]),
+  },
+
   data() {
     return {
       pagination: {
         pageSize: 10,
       },
+      groupCommits: Object,
     };
   },
 };
