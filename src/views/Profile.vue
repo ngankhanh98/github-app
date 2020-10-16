@@ -1,5 +1,5 @@
 <template>
-  <div class="flex">
+  <div class="flex" v-if="userInfo">
     <PersonalBar v-show="detail" :user="detail" />
     <div class="flex-auto">
       <div class="ml-8 text-lg">Repositories</div>
@@ -35,14 +35,14 @@ export default {
     userInfo() {
       const info = this.$store.state?.users?.[0];
       console.log("info", info);
-      if (info !== undefined) {
-        console.log("info", info);
-        const { login, avatar_url } = info;
-        console.log("login", login);
-        console.log("avatar_url", avatar_url);
-        return { username: login, avatar_url };
+      if (info === undefined || info === null) {
+        return false;
       }
-      return false;
+      console.log("info", info);
+      const { login, avatar_url } = info;
+      console.log("login", login);
+      console.log("avatar_url", avatar_url);
+      return { username: login, avatar_url };
     },
   },
 

@@ -25,7 +25,7 @@ export default {
   methods: {
     handleClose() {
       this.visible = false;
-      this.$store.dispatch("resetState");
+      this.$store.dispatch("clearAlert");
     },
   },
 };

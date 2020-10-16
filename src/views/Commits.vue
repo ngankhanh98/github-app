@@ -5,7 +5,7 @@
     <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
       <div class="py-6 align-middle inline-block min-w-full sm:px-6 lg:px-8">
         <div class="sm:rounded-lg">
-          <a-timeline  >
+          <a-timeline v-if="groupCommits">
             <a-timeline-item
               v-for="date in Object.keys(groupCommits)"
               :key="date"
@@ -15,7 +15,6 @@
               <a-list
                 item-layout="vertical"
                 size="large"
-               
                 :data-source="groupCommits[date]"
               >
                 <template v-slot:renderItem="item">
@@ -49,14 +48,21 @@ export default {
   components: {
     Commit,
   },
-  mounted() {
+  beforeMount() {
     const { username, repository } = this.$route.params;
     console.log("username, repository", username, repository);
     this.$store.dispatch("loadCommits", { username, repository });
+    console.log("create");
+    console.log(
+      "this.$store.state.commits",
+      JSON.stringify(this.$store.state.commits)
+    );
   },
   computed: {
     ...mapGetters(["commits"]),
     groupCommits() {
+      console.log("computed");
+      if (this.commits == null || this.commits == undefined) return null;
       return this.commits.reduce((r, a) => {
         r[moment(a.commit.author.date).format("L")] = [
           ...(r[moment(a.commit.author.date).format("L")] || []),

@@ -41,7 +41,7 @@ export default createStore({
       console.log('state.detail', state.detail)
     },
     CLEAR_ALERT(state) {
-      state.alert = {}
+      state.alert = { type: '', message: '' }
     }
   },
   actions: {
@@ -56,7 +56,7 @@ export default createStore({
 
         })
         .catch((err) => {
-          commit('SET_ALERT', { type: 'error', message: err.response.data.errors[0] })
+          commit('SET_ALERT', { type: 'error', message: err.response.data.message })
         });
     },
     resetState({ commit }) {
@@ -72,7 +72,7 @@ export default createStore({
           commit('LOAD_REPOS', result)
         })
         .catch((err) => {
-          commit('SET_ALERT', { type: 'error', message: err.message })
+          commit('SET_ALERT', { type: 'error', message: err.response.data.message })
         });
     },
     loadCommits({ commit }, { username, repository }) {
@@ -83,7 +83,7 @@ export default createStore({
         console.log('result.data', result.data)
         commit('LOAD_COMMITS', result.data)
       }).catch((err) => {
-        commit('SET_ALERT', { type: 'error', message: err.message })
+        commit('SET_ALERT', { type: 'error', message: err.response.data.message })
       });
     },
     loadUserDetail({ commit }, username) {
@@ -91,7 +91,7 @@ export default createStore({
       return axios.get(`https://api.github.com/users/${username}`).then((result) => {
         commit('LOAD_USER_DETAIL', result)
       }).catch((err) => {
-        commit('SET_ALERT', { type: 'error', message: err.message })
+        commit('SET_ALERT', { type: 'error', message: err.response.data.message })
       });
     },
     clearAlert({ commit }) {

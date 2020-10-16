@@ -35,6 +35,8 @@
       <div class="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
         <div class="px-4 py-6 sm:px-0">
           <router-view />
+          <!-- Alert -->
+          <Alert v-if="alert" :message="alert.message" :type="alert.type" />
         </div>
       </div>
     </main>
@@ -44,13 +46,22 @@
 <script>
 import SearchBar from "../components/search_bar";
 import SearchButton from "../components/search_button";
-import moment from 'moment'
+import Alert from '../components/alert'
+import moment from "moment";
+import { mapGetters } from "vuex";
+
 export default {
   name: "AppLayout",
   components: {
     SearchBar,
     SearchButton,
+    Alert
   },
+
+  computed: {
+    ...mapGetters(["alert"]),
+  },
+
   data() {
     return {
       searchBtnClick: moment().unix(),
