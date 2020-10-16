@@ -17,3 +17,4 @@ Because this is a training material, some helpful resources will be included and
 - [ ] [The 5 Problem-Solving Skills of Great Software Developers](https://dev.to/lpasqualis/the-5-problem-solving-skills-of-great-software-developers-4e6?utm_campaign=Grokking%20Newsletter&utm_medium=email&utm_source=Revue%20newsletter&fbclid=IwAR0Wt3hw23-ql40EmLAnuDuRtdrxf_W0dn82DLoVLPxxwrnZqWhH7wzV7SA)
 - [ ] [State Management with Composition API](https://vueschool.io/articles/vuejs-tutorials/state-management-with-composition-api/)
 - [ ] [Ant Design for Vue](https://2x.antdv.com/docs/vue/introduce/)
+- [ ] [Watch for Vuex State changes!](https://dev.to/viniciuskneves/watch-for-vuex-state-changes-2mgj)

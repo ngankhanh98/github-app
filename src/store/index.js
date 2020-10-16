@@ -27,6 +27,7 @@ export default createStore({
     RESET_STATE(state) {
       const states = Object.keys(state)
       states.forEach(item => state[item] = null)
+      console.log('state', state)
     },
     LOAD_REPOS(state, { data }) {
       state.repos = data

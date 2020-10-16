@@ -31,19 +31,15 @@
       </div>
     </div>
   </div>
-  <!-- Alert -->
-  <Alert v-if="alert" :message="alert.message" :type="alert.type" />
 </template>
 
 <script>
 import UserItem from "../components/user_item";
-import Alert from "../components/alert";
 import { mapGetters } from "vuex";
 
 export default {
   components: {
     UserItem,
-    Alert,
   },
   computed: {
     ...mapGetters(["users", "alert"]),

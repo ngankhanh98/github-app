@@ -40,7 +40,7 @@
 </template>
 
 <script>
-// import { mapGetters } from "vuex";
+import { mapGetters } from "vuex";
 import moment from "moment";
 import Commit from "../components/commit";
 export default {
@@ -48,23 +48,20 @@ export default {
   components: {
     Commit,
   },
-  beforeMount() {
+  created() {
     const { username, repository } = this.$route.params;
-    console.log("username, repository", username, repository);
-    this.$store.dispatch("loadCommits", { username, repository });
-    console.log("create");
-    console.log(
-      "this.$store.state.commits",
-      JSON.stringify(this.$store.state.commits)
-    );
+    this.LoadCommits(username, repository);
   },
-  computed: {
-    // ...mapGetters(["commits"]),
-    groupCommits() {
-      console.log("computed");
-      const commits = JSON.stringify(this.$store.state.commits);
-      if (commits == undefined || commits == null) return null;
-      return commits.reduce((r, a) => {
+  methods: {
+    async LoadCommits(username, repository) {
+      await this.$store.dispatch("loadCommits", { username, repository });
+    },
+  },
+  watch: {
+    commits(newValue) {
+     
+      const commits = newValue;
+      this.groupCommits = commits?.reduce((r, a) => {
         r[moment(a.commit.author.date).format("L")] = [
           ...(r[moment(a.commit.author.date).format("L")] || []),
           a,
@@ -73,11 +70,28 @@ export default {
       }, {});
     },
   },
+  computed: {
+    ...mapGetters(["commits"]),
+    // groupCommits() {
+    //   console.log("commits", this.$store.state.commits);
+    //   const commits = this.$store.state.commits;
+    //   if (commits == undefined || commits == null) return null;
+    //   return commits.reduce((r, a) => {
+    //     r[moment(a.commit.author.date).format("L")] = [
+    //       ...(r[moment(a.commit.author.date).format("L")] || []),
+    //       a,
+    //     ];
+    //     return r;
+    //   }, {});
+    // },
+  },
+
   data() {
     return {
       pagination: {
         pageSize: 10,
       },
+      groupCommits: Object,
     };
   },
 };

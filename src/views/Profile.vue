@@ -33,12 +33,12 @@ export default {
   computed: {
     ...mapGetters(["repos", "detail"]),
   },
-  created() {
+  async created() {
     const { username } = this.$route.params;
-    this.Load(username);
+    await this.LoadReposAndUserDetail(username);
   },
   methods: {
-    async Load(username) {
+    async LoadReposAndUserDetail(username) {
       await this.$store.dispatch("loadRepos", username);
       await this.$store.dispatch("loadUserDetail", username);
     },
