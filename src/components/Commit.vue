@@ -3,7 +3,7 @@
     <div class="flex items-center">
       <div class="ml-2">
         <a :href="html_url" target="_blank">
-          <div class="text-md leading-5 font-medium text-gray-900 mb-2">
+          <div class="text-md leading-5 font-medium text-gray-900 mb-2 break-words">
             {{ message }}
           </div>
         </a>
