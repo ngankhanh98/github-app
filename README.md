@@ -21,20 +21,20 @@ Because this is a training material, some helpful resources will be included and
 - [ ] [Watch for Vuex State changes!](https://dev.to/viniciuskneves/watch-for-vuex-state-changes-2mgj)
 
 
-// Lời dạn
-components/search_bar.vue -> SearchBar -> keyup.on emit sự kiện lên cha thôi, cha sử lý state
-search_bar và search_button -> slot / renderless
-https://learn-vuejs.github.io/vue-patterns/patterns/#component-declaration
-VueFront
-stateful vs stateless components
+// Lời dặn
+components/search_bar.vue -> SearchBar -> keyup.on emit sự kiện lên cha thôi, cha sử lý state<br>
+search_bar và search_button -> slot / renderless<br>
+https://learn-vuejs.github.io/vue-patterns/patterns/#component-declaration<br>
+VueFront<br>
+stateful vs stateless components<br>
 
-// components không đụng chạm state, chỉ emit sự kiện lên views 
-// nếu viết sự kiện trong component thì không tận dụng được component, nếu chỉ emit sự kiện ra cho views cha, view cha tự biết các xử lý, tùy chỗ component có mặt trong views
+// components không đụng chạm state, chỉ emit sự kiện lên views <br>
+// nếu viết sự kiện trong component thì không tận dụng được component, nếu chỉ emit sự kiện ra cho views cha, view cha tự biết các xử lý, tùy chỗ component có mặt trong views<br>
 
-// TODO: tách store, optimised
-// có khi mình viết component cho người khác dùng
-// renderless
-// stateless, renderless giống giống abstract
+// TODO: tách store, optimised<br>
+// có khi mình viết component cho người khác dùng<br>
+// renderless<br>
+// stateless, renderless giống giống abstract<br>
 
 // TODO: NestJS 
 // TODO: ERD drawio: overview, 3 first 
